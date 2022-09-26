@@ -1,1 +1,1 @@
-### ML-diagram of Conceptual Classes
+### UML-diagram of Conceptual Classes
