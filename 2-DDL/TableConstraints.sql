@@ -35,3 +35,5 @@ ALTER TABLE Manager ADD CONSTRAINT manager_clientId_fk
 ALTER TABLE Bill ADD CONSTRAINT bill_fk 
     FOREIGN KEY (packageId) REFERENCES InternetPackage(packageId); 
 
+ALTER TABLE Bill ADD CONSTRAINT billAmount_not_less_than_zero 
+    CHECK (billAmount >= 0); 
