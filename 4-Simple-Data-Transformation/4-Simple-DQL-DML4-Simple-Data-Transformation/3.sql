@@ -64,31 +64,22 @@ BILLAMOUNT BILLDATE  CLIENTNAME
 екві-з’єднання.
 */
 SELECT b.billamount, b.billdate, c.clientname 
-    FROM BILL b, CLIENT c;
+    FROM BILL b NATURAL JOIN CLIENT c;
 /*
-BILLAMOUNT BILLDATE  CLIENTNAME
----------- --------- ----------------------------------------
-       199 02-OCT-22 Name 1
-       199 02-OCT-22 Name 2
-       199 02-OCT-22 Name3
-       199 02-OCT-22 L
-       199 02-OCT-22 Liam
-       199 02-OCT-22 Liam Nisson
-       299 02-NOV-22 Name 1
-       299 02-NOV-22 Name 2
-       299 02-NOV-22 Name3
-       299 02-NOV-22 L
-       299 02-NOV-22 Liam
+BILLAMOUNT BILLDATE   CLIENTNAME
+---------- ---------- ----------------------------------------
+       199 02/10/2022 Name 1
+       299 02/11/2022 Name 2
+       199 10/10/2022 Name 1
+       199 10/10/2022 Name 2
+       199 10/10/2022 L
+       199 10/10/2022 Liam
+       199 10/10/2022 L
+       199 10/10/2022 Name3
+       199 01/03/2023 Name 1
+       199 01/03/2021 Name 1
 
-BILLAMOUNT BILLDATE  CLIENTNAME
----------- --------- ----------------------------------------
-       299 02-NOV-22 Liam Nisson
-       199 10-OCT-22 Name 1
-       199 10-OCT-22 Name 2
-       199 10-OCT-22 Name3
-       199 10-OCT-22 L
-       199 10-OCT-22 Liam
-       199 10-OCT-22 Liam Nisson
+10 rows selected.
 */
 
 /*
