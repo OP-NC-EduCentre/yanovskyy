@@ -42,20 +42,15 @@ INSERT INTO OBJECTS (OBJECT_ID,PARENT_ID,OBJECT_TYPE_ID,NAME,DESCRIPTION)
 4.3 Отримати колекцію екземплярів об'єктів для одного з об'єктних типів, використовуючи
 його код.
 */
-SELECT OBJECT_ID,NAME
+SELECT OBJECT_ID, (SELECT CODE FROM OBJTYPE WHERE OBJECT_TYPE_ID = OBJECTS.OBJECT_TYPE_ID) as CODE, NAME
 FROM OBJECTS;
 /*
-OBJECT_ID NAME
---------- --------------------
-        1 Ivanov Ivan Ivanovic
-          h
-
-        2 Stepan Bendera
-        3 Taras Grugorocich Sh
-          evchenko
-
-        4 Artemenko Artem Arte
-          movich
+OBJECT_ID CODE       NAME
+--------- ---------- ------------------------------
+        1 Manager    Ivanov Ivan Ivanovich
+        2 Client     Stepan Bendera
+        3 Client     Taras Grugorocich Shevchenko
+        4 Client     Artemenko Artem Artemovich
 */
 
 
@@ -63,12 +58,11 @@ OBJECT_ID NAME
 4.4 Отримати один екземпляр об'єкта заданого імені для одного з об'єктних типів,
 використовуючи його код.
 */
-SELECT OBJECT_ID,NAME
-	FROM OBJECTS
-	WHERE OBJECT_TYPE_ID = 1;
+SELECT OBJECT_ID, (SELECT CODE FROM OBJTYPE WHERE OBJECT_TYPE_ID = OBJECTS.OBJECT_TYPE_ID) as CODE, NAME
+FROM OBJECTS
+WHERE OBJECT_TYPE_ID = 1;
 /*
-OBJECT_ID NAME
---------- --------------------
-        1 Ivanov Ivan Ivanovic
-          h
+OBJECT_ID CODE       NAME
+--------- ---------- ------------------------------
+        1 Manager    Ivanov Ivan Ivanovich
 */

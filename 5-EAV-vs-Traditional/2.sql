@@ -48,6 +48,10 @@ INSERT INTO ATTRTYPE (ATTR_ID,OBJECT_TYPE_ID,OBJECT_TYPE_ID_REF,CODE,NAME)
     VALUES (12, 1, 2, 'support', 'mng support client');
 INSERT INTO ATTRTYPE (ATTR_ID,OBJECT_TYPE_ID,OBJECT_TYPE_ID_REF,CODE,NAME)
     VALUES (13, 2, 3, 'have', 'clnt have bill');
+INSERT INTO ATTRTYPE (ATTR_ID,OBJECT_TYPE_ID,OBJECT_TYPE_ID_REF,CODE,NAME)
+    VALUES (14, 3, 4, 'pay for', 'bill pay for internet package');
+INSERT INTO ATTRTYPE (ATTR_ID,OBJECT_TYPE_ID,OBJECT_TYPE_ID_REF,CODE,NAME)
+    VALUES (15, 1, 4, 'manager', 'manager offer internet pacage');
 /*
 
 */
