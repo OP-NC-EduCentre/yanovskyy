@@ -50,17 +50,19 @@ ORA-42399: cannot perform a DML operation on a read-only view
 */
 CREATE OR REPLACE VIEW ATTRTYPE_COUNTS
 AS
-    SELECT COUNT(OBJECT_CODE) AS OBJCODE_C, 
-        COUNT(ATTR_ID) AS ATTR_ID_C,
-        COUNT(ATTR_CODE) AS ATTR_CODE_C, 
-        COUNT(NAME) AS NAME_C
-        FROM ATTRTYPE_LIST;
+    select OBJECT_CODE, COUNT(OBJECT_CODE) AS COUNT
+FROM ATTRTYPE_LIST GROUP BY OBJECT_CODE;
 
 SELECT * FROM ATTRTYPE_COUNTS; 
+
+
+
 /*
- OBJCODE_C  ATTR_ID_C ATTR_CODE_C     NAME_C
----------- ---------- ----------- ----------
-        13         13          13         13
+OBJECT_CODE               COUNT
+-------------------- ----------
+BILL                          5
+Client                        5
+Manager                       3
 */
 
 /*
