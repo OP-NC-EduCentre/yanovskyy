@@ -48,21 +48,21 @@ ORA-42399: cannot perform a DML operation on a read-only view
 2.3 Створити віртуальну таблицю, що містить дві колонки:
 назва класу, кількість екземплярів об'єктів класу. Отримати вміст таблиці.
 */
-CREATE OR REPLACE VIEW ATTRTYPE_COUNTS
-AS
-    select OBJECT_CODE, COUNT(OBJECT_CODE) AS COUNT
-FROM ATTRTYPE_LIST GROUP BY OBJECT_CODE;
 
-SELECT * FROM ATTRTYPE_COUNTS; 
+CREATE OR REPLACE VIEW OBJECTS_COUNTS
+AS
+    select DESCRIPTION as Class, COUNT(DESCRIPTION) AS COUNT
+FROM OBJECTS GROUP BY DESCRIPTION;
+
+SELECT * FROM OBJECTS_COUNTS; 
 
 
 
 /*
-OBJECT_CODE               COUNT
+CLASS                     COUNT
 -------------------- ----------
-BILL                          5
-Client                        5
-Manager                       3
+Manager                       1
+Client                        7
 */
 
 /*
