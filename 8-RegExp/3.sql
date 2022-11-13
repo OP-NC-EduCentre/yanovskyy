@@ -93,7 +93,7 @@ ORA-02290: check constraint (SYSTEM.EMAIL_FORMAT) violated
 5. Видаліть зайві дані з колонки з номером мобільного телефону, залишивши тільки номер
 телефону в заданому форматі.
 */
-UPDATE CLIENT SET PHONE = NULL
+UPDATE CLIENT SET PHONE = regexp_substr(PHONE, '(\+[0-9]{2}\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2})')
 WHERE NOT regexp_like(PHONE, '^(\+[0-9]{2}\([0-9]{3}\)[0-9]{3}\-[0-9]{2}\-[0-9]{2})');
 
 /*
@@ -101,27 +101,27 @@ RIGHT FORMAT PHONE: +38(066)666-66-66
 
 BEFORE: 
 
-CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY    CLIENTAGE PHONE                          EMAIL
----------- ---------------------------------------- ---------- ---------- ---------- ------------------------------ ----------------------------------------
-1          Name 1                                   1          01/01/2001
-2          Name 2                                   2          02/02/2002
-6          Name3                                    4          10/10/2010
-3          L                                        5          01/01/2001
-4          Nisson Liam                              6          01/01/2001
-5          Liam Nisson                              7          01/01/2001            +38(077)777-77-77
-555        Snow Snow Ho                             8          01/01/1978         45 Mobile:+38(066)666-66-66       testUsetLogin@eml.com.ua
+CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE PHONE                          EMAIL
+---------- ---------------------------------------- ---------- --------- ---------- ------------------------------ ----------------------------------------
+1          Name 1                                   1          01-JAN-01
+2          Name 2                                   2          02-FEB-02
+6          Name3                                    4          10-OCT-10
+3          L                                        5          01-JAN-01
+4          Nisson Liam                              6          01-JAN-01
+5          Liam Nisson                              7          01-JAN-01            Mobile:+38(066)666-66-66
+555        Snow Snow Ho                             8          01-JAN-78         45 +38(077)777-77-77              testUsetLogin@eml.com.ua
 
 AFTER: 
 
-CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY    CLIENTAGE PHONE                          EMAIL
----------- ---------------------------------------- ---------- ---------- ---------- ------------------------------ ----------------------------------------
-1          Name 1                                   1          01/01/2001
-2          Name 2                                   2          02/02/2002
-6          Name3                                    4          10/10/2010
-3          L                                        5          01/01/2001
-4          Nisson Liam                              6          01/01/2001
-5          Liam Nisson                              7          01/01/2001            +38(077)777-77-77
-555        Snow Snow Ho                             8          01/01/1978         45                                testUsetLogin@eml.com.ua
+CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE PHONE                          EMAIL
+---------- ---------------------------------------- ---------- --------- ---------- ------------------------------ ----------------------------------------
+1          Name 1                                   1          01-JAN-01
+2          Name 2                                   2          02-FEB-02
+6          Name3                                    4          10-OCT-10
+3          L                                        5          01-JAN-01
+4          Nisson Liam                              6          01-JAN-01
+5          Liam Nisson                              7          01-JAN-01            +38(066)666-66-66
+555        Snow Snow Ho                             8          01-JAN-78         45 +38(077)777-77-77              testUsetLogin@eml.com.ua
 */
 
 
