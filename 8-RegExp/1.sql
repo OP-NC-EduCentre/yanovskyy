@@ -4,13 +4,17 @@
 використовуючи оператор LIKE.
 */
 SELECT * FROM CLIENT 
-WHERE CLIENTNAME LIKE 'Lia%';
+WHERE 
+CLIENTNAME LIKE 'Lia%'
+OR CLIENTNAME LIKE 'Nis%' 
+OR CLIENTNAME LIKE 'Sno%';
 
 /*
-CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE
----------- ---------------------------------------- ---------- --------- ----------
-4          Liam Nisson                              6          01-JAN-01
-5          Liam Nisson                              7          01-JAN-01
+CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE PHONE                          EMAIL
+---------- ---------------------------------------- ---------- --------- ---------- ------------------------------ ----------------------------------------
+4          Nisson Liam                              6          01-JAN-01
+5          Liam Nisson                              7          01-JAN-01            +38(077)777-77-77
+555        Snow Snow Ho                             8          01-JAN-78         45 +38(077)777-77-77              testUsetLogin@eml.com.ua
 */
 
 /*
@@ -18,12 +22,13 @@ CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENT
 */
 
 SELECT * FROM CLIENT 
-WHERE regexp_like(CLIENTNAME, '^Lia'); 
+WHERE regexp_like(CLIENTNAME, '^Lia|^Nis|^Sno'); 
 /*
-CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE
----------- ---------------------------------------- ---------- --------- ----------
-4          Liam Nisson                              6          01-JAN-01
-5          Liam Nisson                              7          01-JAN-01
+CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE PHONE                          EMAIL
+---------- ---------------------------------------- ---------- --------- ---------- ------------------------------ ----------------------------------------
+4          Nisson Liam                              6          01-JAN-01
+5          Liam Nisson                              7          01-JAN-01            +38(077)777-77-77
+555        Snow Snow Ho                             8          01-JAN-78         45 +38(077)777-77-77              testUsetLogin@eml.com.ua
 */
 
 /*
@@ -62,9 +67,9 @@ CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY    CLIEN
 колонці поєднання будь-яких трьох цифр розміщених підряд від 3 до 8.
 */
 SELECT * FROM CLIENT 
-WHERE regexp_like(CLIENTID, '([3-8])\1\1');
+WHERE regexp_like(CLIENTID, '[3-8][3-8][3-8]');
 /*
-CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY    CLIENTAGE
----------- ---------------------------------------- ---------- ---------- ----------
-555        Snow Snow Ho                             8          01/01/1978         45
+CLIENTID   CLIENTNAME                               MANAGERID  BIRTHDAY   CLIENTAGE PHONE                          EMAIL
+---------- ---------------------------------------- ---------- --------- ---------- ------------------------------ ----------------------------------------
+555        Snow Snow Ho                             8          01-JAN-78         45 +38(077)777-77-77              testUsetLogin@eml.com.ua
 */
