@@ -3,17 +3,25 @@
 виділення підгруп, інша колонка повинна мати числові значення. Створіть запит, який
 отримає усереднені (avg) значення другої колонки кожного рядка в кожній підгрупі.
 */
-SELECT clientid, AVG(billamount) FROM bill GROUP BY clientid;
+SELECT
+    DISTINCT CLIENTID,
+    AVG(BILLAMOUNT) OVER (
+    PARTITION BY CLIENTID) AS AVERAGE
+FROM
+    BILL;
 /*
-CLIENTID   AVG(BILLAMOUNT)
----------- ---------------
-1                    274.5
-2                      299
-3                      349
-4                      199
-5                      199
-6                      199
-7                      199
+CLIENTID      AVERAGE
+---------- ----------
+1               274.5
+2                 299
+3                 349
+4                 199
+5                 199
+6                 199
+7                 199
+8                 250
+
+8 rows selected.
 */
 
 
@@ -22,22 +30,26 @@ CLIENTID   AVG(BILLAMOUNT)
 виділення підгруп, інша колонка повинна мати числові значення. Створіть запит, який
 отримає накопичувальні підсумки другої колонки.
 */
-select clientid, sum(billamount) over (partition by billamount) as sumAmount from bill;
+SELECT
+    CLIENTID,
+    SUM(BILLAMOUNT) AS TOTALPAYED
+FROM
+    BILL
+GROUP BY
+    CLIENTID;
 /*
-CLIENTID    SUMAMOUNT
+CLIENTID   TOTALPAYED
 ---------- ----------
-6                1194
-4                1194
-5                1194
+1                 549
+2                 598
+3                 698
+4                 398
+5                 597
+6                 199
 7                1194
-5                1194
-4                1194
-1                 250
-1                 897
-2                 897
-2                 897
-3                 698
-3                 698
+8                 250
+
+8 rows selected.
 */
 
 
@@ -45,16 +57,26 @@ CLIENTID    SUMAMOUNT
 3. Виконайте попереднє завдання, отримавши накопичувальні підсумки в кожній
 підгрупі окремо.
 */
-SELECT clientid, SUM(billamount) FROM bill GROUP BY clientid;
+SELECT
+    DISTINCT CLIENTID,
+    SUM(BILLAMOUNT) OVER (
+    PARTITION BY CLIENTID) AS TOTALPAYED
+FROM
+    BILL
+ORDER BY
+    TOTALPAYED DESC;
 /*
-CLIENTID   SUM(BILLAMOUNT)
----------- ---------------
-1                      549
-2                      598
-3                      698
-4                      398
-5                      398
-6                      199
-7                      199
+CLIENTID   TOTALPAYED
+---------- ----------
+7                1194
+3                 698
+2                 598
+5                 597
+1                 549
+4                 398
+8                 250
+6                 199
+
+8 rows selected.
 */
 
