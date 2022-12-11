@@ -33,6 +33,43 @@ CLIENTID      AVERAGE
 SELECT 
     CLIENTID,
     SUM(BILLAMOUNT) OVER (
+        ORDER BY CLIENTID
+    ) AS PAYED
+FROM BILL; 
+/*
+CLIENTID        PAYED
+---------- ----------
+1                 549
+1                 549
+2                1147
+2                1147
+3                1845
+3                1845
+4                2243
+4                2243
+5                2840
+5                2840
+5                2840
+6                3039
+7                4233
+7                4233
+7                4233
+7                4233
+7                4233
+7                4233
+8                4483
+
+19 rows selected.
+*/
+
+
+/*
+3. Виконайте попереднє завдання, отримавши накопичувальні підсумки в кожній
+підгрупі окремо.
+*/  
+SELECT 
+    CLIENTID,
+    SUM(BILLAMOUNT) OVER (
         PARTITION BY CLIENTID
         ORDER BY BILLDATE
     ) AS PAYED
@@ -61,39 +98,5 @@ CLIENTID        PAYED
 8                 250
 
 19 rows selected.
-*/
-
-
-/*
-3. Виконайте попереднє завдання, отримавши накопичувальні підсумки в кожній
-підгрупі окремо.
-*/
-WITH SUM_LIST AS (
-    SELECT 
-    CLIENTID,
-    SUM(BILLAMOUNT) OVER (
-        PARTITION BY CLIENTID
-        ORDER BY BILLDATE
-    ) AS PAYED
-FROM BILL
-)
-SELECT 
-    DISTINCT 
-    CLIENTID, 
-    SUM(PAYED) OVER (ORDER BY CLIENTID) AS TOTAL_BY_CLIENT
-FROM SUM_LIST; 
-/*
-CLIENTID   TOTAL_BY_CLIENT
----------- ---------------
-1                      799
-2                     1696
-3                     2743
-4                     3340
-5                     4733
-6                     4932
-7                     9310
-8                     9560
-
-8 rows selected.
 */
 
