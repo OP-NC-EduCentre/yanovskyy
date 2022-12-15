@@ -11,4 +11,4 @@ jobs:
      - name: start sql linter 
        run: 
          pip install sqlfluff
-         sqlfluff lint -d oracle $GITHUB_WORKSPACE/9-AnalyticFunctions/*.sql
+         sqlfluff lint $GITHUB_WORKSPACE/10-SQLCodingConventionsGitHubActions/*.sql --dialect oracle
