@@ -14,13 +14,26 @@ bill_bill_amount bills.billamount%TYPE;
 bill_bill_date bills.billdate%TYPE; 
 
 BEGIN 
-SELECT BILLID INTO bill_id FROM BILLS WHERE BILLID = target_bill_id; 
-SELECT CLIENTID INTO bill_client_id FROM BILLS WHERE BILLID = target_bill_id; 
-SELECT PACKAGEID INTO bill_packageid FROM BILLS WHERE BILLID = target_bill_id; 
-SELECT BILLAMOUNT INTO bill_bill_amount FROM BILLS WHERE BILLID = target_bill_id; 
-SELECT BILLDATE INTO bill_bill_date FROM BILLS WHERE BILLID = target_bill_id; 
+SELECT 
+    BILLID, 
+    CLIENTID, 
+    PACKAGEID, 
+    BILLAMOUNT, 
+    BILLDATE
+INTO 
+    bill_id, 
+    bill_client_id, 
+    bill_packageid, 
+    bill_bill_amount, 
+    bill_bill_date
+FROM BILLS WHERE BILLID = target_bill_id; 
 
+bill_id := 'someID' || TEST.NEXTVAL; 
+bill_client_id := 1;
+bill_packageid := 4;
+bill_bill_amount := 600; 
 bill_bill_date := TO_DATE(bill_bill_date,'DD/MM/YYYY');
+
 
 DBMS_OUTPUT.PUT_LINE('BILL: id {' || bill_id || 
         '} client_id {' || bill_client_id || 
@@ -101,15 +114,14 @@ Average bill amount for client with id 1 is 600
 Значення первинного ключа генеруються автоматично, решта даних дублюється.
 */
 DECLARE 
-    i NUMBER; 
     b_bill_id BILLS.BILLID%TYPE := 'someID'; 
     b_bill_c_id BILLS.CLIENTID%TYPE := 2; 
     b_pakcakge_id BILLS.PACKAGEID%TYPE := 1; 
     b_bill_amt BILLS.BILLAMOUNT%TYPE := 199; 
     b_bill_date BILLS.BILLDATE%TYPE := TO_DATE(CURRENT_DATE,'DD/MM/YYYY');
 BEGIN 
-    i:=1;
-	LOOP
+	FOR i IN 1..5 
+    LOOP
 		INSERT INTO BILLS
 					(BILLID, CLIENTID, PACKAGEID, BILLAMOUNT,BILLDATE)
 		VALUES(	b_bill_id || i, 
@@ -117,8 +129,7 @@ BEGIN
 				b_pakcakge_id,
 				b_bill_amt,
 				b_bill_date);
-		i := i + 1;
-		EXIT WHEN i > 5;
+		
 	END LOOP;	
 END; 
 /

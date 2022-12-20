@@ -50,38 +50,29 @@ dzNPNw0eOW 2          1                 199 16.11.2022
 */
 DECLARE 
     CURSOR bills_ids IS
-        SELECT BILLID FROM BILLS FETCH FIRST 2 ROWS ONLY; 
+        SELECT BILLID FROM BILLS; 
     bill_id_rack bills_ids%ROWTYPE; 
-    
-    target_table_name VARCHAR(15); 
-    table_count NUMBER; 
-
+    table_cols_names VARCHAR(8000);
 BEGIN
-    FOR bill_id_rack IN bills_ids
-    LOOPe
-        target_table_name := 'A' || bill_id_rack.billid; 
-        SELECT COUNT(*) 
-            INTO table_count 
-            FROM dba_tables
-            WHERE table_name = target_table_name;
-        if (table_count >  0) THEN 
-            DBMS_OUTPUT.PUT_LINE('Tabe whis name: ' || target_table_name || ' is exist, deleting...');
-            EXECUTE IMMEDIATE 'DROP TABLE ' || target_table_name; 
-            DBMS_OUTPUT.PUT_LINE('Table ' || target_table_name || ' droped success. Creating new table with this name.');
-            EXECUTE IMMEDIATE 'CREATE TABLE ' || target_table_name || ' (col1 VARCHAR(10))';
-        ELSE 
-            DBMS_OUTPUT.PUT_LINE('Creating table with name ' || target_table_name);
-            EXECUTE IMMEDIATE 'CREATE TABLE ' || target_table_name || ' (col1 VARCHAR(10))';
-            DBMS_OUTPUT.PUT_LINE('Table ' || target_table_name || ' created success'); 
-        END IF; 
-    END LOOP;
+    FOR i IN bills_ids
+    LOOP
+        table_cols_names := table_cols_names || 'a' || i.BILLID || ' VARCHAR(10), '; 
+    END LOOP; 
+    EXECUTE IMMEDIATE 'CREATE TABLE TEST_L_11 (' || SUBSTR(table_cols_names, '0', (LENGTH(table_cols_names)-2)) || ' )';
 END;    
 /
 /*
-Creating table with name A21P6Bv6roU
-Table A21P6Bv6roU created success
-Creating table with name A388PDOzHMY
-Table A388PDOzHMY created success
+COLUMN_NAME DATA_TYPE           NULLABLE COLUMN_ID
+A21P6BV6ROU	VARCHAR2(10 BYTE)	Yes		1	
+A388PDOZHMY	VARCHAR2(10 BYTE)	Yes		2	
+A3CJJUVIM1Q	VARCHAR2(10 BYTE)	Yes		3	
+ADMBPJSHC2A	VARCHAR2(10 BYTE)	Yes		4	
+AQCI9KEYQAJ	VARCHAR2(10 BYTE)	Yes		5	
+ARJ0R6UC7OF	VARCHAR2(10 BYTE)	Yes		6	
+AAICZXPTUI1	VARCHAR2(10 BYTE)	Yes		7	
+ADZNPNW0EOW	VARCHAR2(10 BYTE)	Yes		8	
+AFKK5GWXLAS	VARCHAR2(10 BYTE)	Yes		9	
+AP5M8QOU3VJ	VARCHAR2(10 BYTE)	Yes		10	
 */
 
 /*
